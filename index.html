@@ -34,10 +34,6 @@
         button:hover {
             background: #005fcc;
         }
-        .result {
-            margin-top: 10px;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -49,29 +45,20 @@
     <label for="price">판매 가격 (₩)</label>
     <input type="number" id="price" placeholder="판매 가격 입력">
 
-    <button onclick="calculateMargin()">계산하기</button>
-
-    <div class="result">
-        <p>💰 마진: <span id="profit">0</span> 원</p>
-        <p>📈 마진율: <span id="profitRate">0</span> %</p>
-    </div>
+    <button onclick="goToResult()">계산하기</button>
 
     <script>
-        function calculateMargin() {
-            let cost = parseFloat(document.getElementById("cost").value);
-            let price = parseFloat(document.getElementById("price").value);
+        function goToResult() {
+            let cost = document.getElementById("cost").value;
+            let price = document.getElementById("price").value;
 
-            if (isNaN(cost) || isNaN(price)) {
-                alert("올바른 숫자를 입력하세요.");
+            if (!cost || !price) {
+                alert("원가와 판매가를 입력하세요.");
                 return;
             }
 
-            let fee = price * 0.05; // 네이버 수수료 5%
-            let profit = price - cost - fee; // 마진 계산
-            let profitRate = (profit / price) * 100; // 마진율 계산
-
-            document.getElementById("profit").textContent = profit.toLocaleString();
-            document.getElementById("profitRate").textContent = profitRate.toFixed(2);
+            // URL에 원가와 판매가 정보를 포함하여 result.html로 이동
+            window.location.href = `result.html?cost=${cost}&price=${price}`;
         }
     </script>
 
